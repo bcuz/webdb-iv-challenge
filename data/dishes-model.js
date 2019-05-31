@@ -2,13 +2,10 @@ const db = require('./dbConfig');
 
 module.exports = {
   get,
-  // getById,
-  // getCohortStudents,
   addDish,
   getDish,
-  getRecipes
-  // update,
-  // remove,
+  getRecipes,
+  addRecipe
 };
 
 function get() {
@@ -40,4 +37,12 @@ function getDish(id) {
 
 function getRecipes() {
   return db('recipes');
+}
+
+function addRecipe(recipe) {
+  return db('recipes')
+  .insert(recipe)
+  .then(ids => {
+    return ids[0]
+  });
 }

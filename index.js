@@ -63,6 +63,19 @@ server.get('/recipes', async (req, res) => {
   }
 });
 
+server.post('/recipes', async (req, res) => {
+  try {
+    const recipe = await Dishes.addRecipe(req.body);
+    res.status(201).json(recipe);
+  } catch (error) {
+    // log error to server
+    console.log(error);
+    res.status(500).json({
+      message: 'Error adding the recipe',
+    });
+  }
+});
+
 const port = 5001;
 server.listen(port, function() {
   console.log(`\n=== Web API Listening on http://localhost:${port} ===\n`);
