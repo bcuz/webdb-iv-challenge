@@ -19,6 +19,24 @@ server.get('/dishes', async (req, res) => {
   }
 });
 
+server.get('/dishes/:id', async (req, res) => {
+  try {
+    const dish = await Dishes.getDish(req.params.id);
+
+    if (dish) {
+      res.status(200).json(dish);
+    } else {
+      res.status(404).json({ message: 'dish not found' });
+    }
+  } catch (error) {
+    // log error to server
+    console.log(error);
+    res.status(500).json({
+      message: 'Error retrieving the dish',
+    });
+  }
+});
+
 server.post('/dishes', async (req, res) => {
   try {
     const dish = await Dishes.addDish(req.body);
