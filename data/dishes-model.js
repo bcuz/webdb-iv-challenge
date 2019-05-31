@@ -23,14 +23,13 @@ function addDish(dish) {
 function getDish(id) {
   return db('recipes')
   .join('dishes', 'dishes.id', 'recipes.dish_id')
-    // .select('dishes.name', 'recipes.style')
-    // .where('dishes.id', 1);
 
     // just going to leave it this way
-    .select([
+    .select(
       'dishes.name',
+      // The group_concat() function returns a string which is the concatenation of all non-NULL values of X
       db.raw('group_concat(recipes.style) as recipes')
-    ])
+    )
     .where('dishes.id', id);
 }
 
